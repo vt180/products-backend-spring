@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 
+/**
+ * The DefaultProductService class is an implementation of the ProductService interface.
+ * It provides methods for creating, updating, deleting, finding products, and retrieving all products with pagination.
+ */
 @Service
 @RequiredArgsConstructor
 public class DefaultProductService
