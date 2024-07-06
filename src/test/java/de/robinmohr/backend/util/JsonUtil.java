@@ -1,4 +1,4 @@
-package de.robinmohr.products_backend_spring.util;
+package de.robinmohr.backend.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

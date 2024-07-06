@@ -1,4 +1,4 @@
-package de.robinmohr.products_backend_spring.products;
+package de.robinmohr.backend.products;
 
 
 import lombok.AllArgsConstructor;

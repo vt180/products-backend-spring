@@ -1,4 +1,4 @@
-package de.robinmohr.products_backend_spring.products;
+package de.robinmohr.backend.products;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 import java.util.Optional;
 
-import static de.robinmohr.products_backend_spring.util.JsonUtil.json;
+import static de.robinmohr.backend.util.JsonUtil.json;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;

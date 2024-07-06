@@ -1,4 +1,4 @@
-package de.robinmohr.products_backend_spring;
+package de.robinmohr.backend;
 
 import org.springframework.boot.SpringApplication;
 
