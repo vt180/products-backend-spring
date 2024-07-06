@@ -1,4 +1,4 @@
-package de.robinmohr.backend.products;
+package de.robinmohr.backend.product;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

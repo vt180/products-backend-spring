@@ -1,4 +1,4 @@
-package de.robinmohr.backend.products;
+package de.robinmohr.backend.product;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
