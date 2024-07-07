@@ -1,6 +1,5 @@
 package de.robinmohr.backend.security;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,17 +23,18 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    @Value("${security.basic.username}")
-    private String username;
-
     @Value("${security.basic.password}")
     private String password;
+    @Value("${security.basic.username}")
+    private String username;
 
     /**
      * Defines the security filter chain for the application.
      *
      * @param http the HttpSecurity object to configure the security filter chain
+     *
      * @return the configured SecurityFilterChain for the application
+     *
      * @throws Exception if an exception occurs while configuring the security filter chain
      */
     @Bean

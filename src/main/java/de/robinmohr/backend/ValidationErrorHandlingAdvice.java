@@ -22,6 +22,7 @@ public class ValidationErrorHandlingAdvice {
      * Handles ConstraintViolationException and returns a list of error messages.
      *
      * @param e The ConstraintViolationException to handle.
+     *
      * @return A list of error messages generated from the ConstraintViolationException.
      */
     @ExceptionHandler(ConstraintViolationException.class)
@@ -41,6 +42,7 @@ public class ValidationErrorHandlingAdvice {
      * Handle MethodArgumentNotValidException and return a list of error messages.
      *
      * @param e The MethodArgumentNotValidException instance to be handled.
+     *
      * @return A list of error messages for field validation errors.
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)

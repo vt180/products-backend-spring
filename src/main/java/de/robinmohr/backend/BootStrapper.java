@@ -25,6 +25,7 @@ public class BootStrapper {
      * Loads products from a CSV file and publishes them using a Kafka producer.
      *
      * @param kafkaProducer the Kafka producer used to publish the products
+     *
      * @return a CommandLineRunner that loads and publishes the products
      */
     @Bean

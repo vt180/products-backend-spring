@@ -27,21 +27,20 @@ public class Product {
      * The COLLECTION variable represents the collection name in the database where the products are stored.
      */
     public static final String COLLECTION = "products";
-
+    @NotBlank
+    private String category;
+    private String colour;
+    private String gender;
+    @Pattern(regexp = "^(http[s]?:\\/\\/(www\\.)?)[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\\/.*)?$")
+    private String imageURL;
     @Id
     @NotBlank
     private String productId;
-    private String gender;
-    @NotBlank
-    private String category;
-    @NotBlank
-    private String subCategory;
-    private String productType;
-    private String colour;
-    private String usage;
     @TextIndexed(weight = 3)
     @NotBlank
     private String productTitle;
-    @Pattern(regexp = "^(http[s]?:\\/\\/(www\\.)?)[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\\/.*)?$")
-    private String imageURL;
+    private String productType;
+    @NotBlank
+    private String subCategory;
+    private String usage;
 }

@@ -30,9 +30,12 @@ public class ProductKafkaProducer {
         final var future = kafkaTemplate.send(topicName, product);
         future.whenComplete((result, ex) -> {
             if (ex == null) {
-                log.info("Sent message=[{}] with offset=[{}] and partition=[{}]", product,
+                log.info("Sent message=[{}] with offset=[{}] and partition=[{}]",
+                         product,
                          result.getRecordMetadata()
-                               .offset(), result.getRecordMetadata().partition());
+                               .offset(),
+                         result.getRecordMetadata()
+                               .partition());
             } else {
                 log.warn("Unable to send message=[{}] due to : {}", product, ex.getMessage());
             }

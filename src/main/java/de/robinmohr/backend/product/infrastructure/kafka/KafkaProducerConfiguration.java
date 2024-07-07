@@ -25,6 +25,18 @@ public class KafkaProducerConfiguration {
     private String bootstrapServers;
 
     /**
+     * Returns a KafkaTemplate for sending messages to Kafka.
+     * This method creates a KafkaTemplate instance using the producerFactory() method from the KafkaProducerConfiguration class.
+     * The KafkaTemplate is responsible for sending messages to Kafka topics.
+     *
+     * @return a KafkaTemplate for sending messages to Kafka
+     */
+    @Bean
+    public KafkaTemplate<String, Product> kafkaTemplate() {
+        return new KafkaTemplate<>(producerFactory());
+    }
+
+    /**
      * Creates a Kafka producer factory with the provided configuration properties.
      * The method uses the Spring Kafka library to create a Kafka producer factory, which is responsible for creating instances of Kafka producers.
      * The factory uses the provided configuration properties to configure the producer instances.
@@ -38,17 +50,5 @@ public class KafkaProducerConfiguration {
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         return new DefaultKafkaProducerFactory<>(configProps);
-    }
-
-    /**
-     * Returns a KafkaTemplate for sending messages to Kafka.
-     * This method creates a KafkaTemplate instance using the producerFactory() method from the KafkaProducerConfiguration class.
-     * The KafkaTemplate is responsible for sending messages to Kafka topics.
-     *
-     * @return a KafkaTemplate for sending messages to Kafka
-     */
-    @Bean
-    public KafkaTemplate<String, Product> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
     }
 }

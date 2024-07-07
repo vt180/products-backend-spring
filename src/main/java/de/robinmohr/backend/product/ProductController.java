@@ -43,14 +43,15 @@ public class ProductController {
     /**
      * Finds products by category, sub-category, and title.
      *
-     * @param productTitle  the title of the product, can be null
-     * @param category      the category of the product, can be null
-     * @param subCategory   the sub-category of the product, can be null
-     * @param page          the page number, default is 0
-     * @param size          the page size, default is 10
+     * @param productTitle the title of the product, can be null
+     * @param category     the category of the product, can be null
+     * @param subCategory  the sub-category of the product, can be null
+     * @param page         the page number, default is 0
+     * @param size         the page size, default is 10
+     *
      * @return a Page of products matching the given category, sub-category, and title
      */
-    @GetMapping()
+    @GetMapping
     public Page<Product> findAll(@RequestParam(required = false) String productTitle,
                                  @RequestParam(required = false) String category,
                                  @RequestParam(required = false) String subCategory,
@@ -87,7 +88,7 @@ public class ProductController {
      *
      * @param product the Product object representing the product to be created
      */
-    @PostMapping()
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createProduct(@Valid @RequestBody Product product) {
         productService.createProduct(product);
