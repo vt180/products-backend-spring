@@ -16,6 +16,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+/**
+ * The KafkaConsumerConfiguration class is a configuration class that provides the necessary configuration for consuming messages from Kafka topics.
+ *
+ * This class is annotated with @Configuration and @EnableKafka to enable the Kafka support in the Spring application context.
+ */
 @Configuration
 @EnableKafka
 public class KafkaConsumerConfiguration {
@@ -23,6 +28,11 @@ public class KafkaConsumerConfiguration {
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
+    /**
+     * Creates a ConsumerFactory for consuming messages from Kafka topics.
+     *
+     * @return the created ConsumerFactory
+     */
     public ConsumerFactory<String, Product> productConsumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -31,6 +41,12 @@ public class KafkaConsumerConfiguration {
         return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(Product.class));
     }
 
+    /**
+     * The productKafkaListenerContainerFactory method creates a ConcurrentKafkaListenerContainerFactory
+     * for consuming messages from Kafka topics with key of type String and value of type Product.
+     *
+     * @return The ConcurrentKafkaListenerContainerFactory for consuming messages from Kafka topics with key of type String and value of type Product.
+     */
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, Product> productKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, Product> factory = new ConcurrentKafkaListenerContainerFactory<>();

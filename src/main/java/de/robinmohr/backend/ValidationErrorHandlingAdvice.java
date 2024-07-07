@@ -11,9 +11,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.List;
 
 
+/**
+ * This class is a controller advice used for handling validation errors in the application.
+ * It provides exception handling methods for ConstraintViolationException and MethodArgumentNotValidException.
+ */
 @ControllerAdvice
 public class ValidationErrorHandlingAdvice {
 
+    /**
+     * Handles ConstraintViolationException and returns a list of error messages.
+     *
+     * @param e The ConstraintViolationException to handle.
+     * @return A list of error messages generated from the ConstraintViolationException.
+     */
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
@@ -27,6 +37,12 @@ public class ValidationErrorHandlingAdvice {
                 .toList();
     }
 
+    /**
+     * Handle MethodArgumentNotValidException and return a list of error messages.
+     *
+     * @param e The MethodArgumentNotValidException instance to be handled.
+     * @return A list of error messages for field validation errors.
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody

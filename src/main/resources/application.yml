@@ -9,6 +9,11 @@ kafka:
     name: products
   groupId: product-group-1
 
+security:
+  basic:
+    username: admin
+    password: password
+
 logging:
   level:
     org.springframework.data.mongodb.core.MongoTemplate: DEBUG
