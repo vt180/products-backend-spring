@@ -5,7 +5,8 @@ spring:
     bootstrap-servers: localhost:29092
 
 kafka:
-  topics: products
+  topic:
+    name: products
   groupId: product-group-1
 
 logging:

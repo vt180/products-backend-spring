@@ -15,7 +15,7 @@ public class ProductEventConsumer {
 
     private final ProductService productService;
 
-    @KafkaListener(topics = "${kafka.topics}", groupId = "${kafka.groupId}", concurrency = "1")
+    @KafkaListener(topics = "${kafka.topic.name}", groupId = "${kafka.groupId}", concurrency = "1")
     void consumeProductEvent(Product product) {
         log.info("Consuming product [{}]", product);
 

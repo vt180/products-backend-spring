@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 
 
 /**
@@ -19,6 +20,7 @@ public class Product {
     /**
      * The Product class represents a product in the system.
      * It contains information about the product's ID and other attributes.
+     *
      * @param productId the id to be set
      */
     public Product(String productId) {
@@ -33,6 +35,7 @@ public class Product {
     private String productType;
     private String colour;
     private String usage;
+    @TextIndexed(weight = 3)
     private String productTitle;
     private String imageURL;
 }
