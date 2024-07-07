@@ -41,37 +41,21 @@ public class ProductController {
     }
 
     /**
-     * Retrieves all products with pagination.
+     * Finds products by category, sub-category, and title.
      *
-     * @param page the page number
-     * @param size the number of items in each page
-     *
-     * @return a Page object containing the products
+     * @param productTitle  the title of the product, can be null
+     * @param category      the category of the product, can be null
+     * @param subCategory   the sub-category of the product, can be null
+     * @param page          the page number, default is 0
+     * @param size          the page size, default is 10
+     * @return a Page of products matching the given category, sub-category, and title
      */
     @GetMapping()
-    public Page<Product> getAllProducts(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
-                                        @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
-        return productService.findAll(PageRequest.of(page, size));
-    }
-
-
-    /**
-     * Retrieves products based on the given parameters.
-     *
-     * @param productTitle the title of the product
-     * @param category     the category of the product
-     * @param subCategory  the sub-category of the product
-     * @param page         the page number
-     * @param size         the number of items in each page
-     *
-     * @return a Page object containing the matching products
-     */
-    @GetMapping("/search")
-    public Page<Product> getProducts(@RequestParam(required = false) String productTitle,
-                                     @RequestParam(required = false) String category,
-                                     @RequestParam(required = false) String subCategory,
-                                     @RequestParam(value = "page", required = false, defaultValue = "0") int page,
-                                     @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+    public Page<Product> findAll(@RequestParam(required = false) String productTitle,
+                                 @RequestParam(required = false) String category,
+                                 @RequestParam(required = false) String subCategory,
+                                 @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                                 @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
         return productService.findByCategoryAndSubCategoryAndTitle(category, subCategory, productTitle, PageRequest.of(page, size));
     }
 
