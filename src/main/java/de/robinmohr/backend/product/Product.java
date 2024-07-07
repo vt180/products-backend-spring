@@ -4,8 +4,10 @@ package de.robinmohr.backend.product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
 /**
@@ -14,18 +16,15 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
+@Document(collection = Product.COLLECTION)
 public class Product {
 
     /**
-     * The Product class represents a product in the system.
-     * It contains information about the product's ID and other attributes.
-     *
-     * @param productId the id to be set
+     * The COLLECTION variable represents the collection name in the database where the products are stored.
      */
-    public Product(String productId) {
-        this.productId = productId;
-    }
+    public static final String COLLECTION = "products";
 
     @Id
     private String productId;

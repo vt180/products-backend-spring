@@ -1,6 +1,6 @@
-package de.robinmohr.backend.pim.infrastructure.kafka;
+package de.robinmohr.backend.product.infrastructure.kafka;
 
-import de.robinmohr.backend.pim.PimProduct;
+import de.robinmohr.backend.product.Product;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +32,7 @@ public class KafkaProducerConfiguration {
      * @return a Kafka producer factory with the specified configuration properties
      */
     @Bean
-    public ProducerFactory<String, PimProduct> producerFactory() {
+    public ProducerFactory<String, Product> producerFactory() {
         final var configProps = new HashMap<String, Object>();
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -48,7 +48,7 @@ public class KafkaProducerConfiguration {
      * @return a KafkaTemplate for sending messages to Kafka
      */
     @Bean
-    public KafkaTemplate<String, PimProduct> kafkaTemplate() {
+    public KafkaTemplate<String, Product> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }

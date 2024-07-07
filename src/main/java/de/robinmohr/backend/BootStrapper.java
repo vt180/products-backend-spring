@@ -1,5 +1,7 @@
-package de.robinmohr.backend.pim;
+package de.robinmohr.backend;
 
+import de.robinmohr.backend.product.Product;
+import de.robinmohr.backend.product.infrastructure.kafka.ProductKafkaProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -12,23 +14,21 @@ import java.util.Objects;
 
 
 /**
- * The BootStrapper class is responsible for initializing the application by loading products from a CSV file
- * and publishing  them with the PimProductService.
- * This simulates some product information system publishing new product information.
+ * The BootStrapper class is responsible for loading products from a CSV file and publishing them using a Kafka producer.
+ * It contains a method that acts as a CommandLineRunner to perform the loading and publishing of products.
  */
 @Configuration
 @Slf4j
 public class BootStrapper {
 
     /**
-     * Loads products from a CSV file and saves them to the ProductService.
+     * Loads products from a CSV file and publishes them using a Kafka producer.
      *
-     * @param productService the ProductService object to use for saving the products
-     *
-     * @return a CommandLineRunner object that loads and saves the products
+     * @param kafkaProducer the Kafka producer used to publish the products
+     * @return a CommandLineRunner that loads and publishes the products
      */
     @Bean
-    public CommandLineRunner productLoader(PimProductService productService) {
+    public CommandLineRunner productLoader(ProductKafkaProducer kafkaProducer) {
         return args -> {
             log.info("Application started and initializing!");
 
@@ -39,7 +39,7 @@ public class BootStrapper {
                           .map(BootStrapper::createProductFromCsvLine)
                           .forEach(product -> {
                               log.info("publishing product: {}", product);
-                              productService.publish(product);
+                              kafkaProducer.sendMessage(product);
                               log.info("published product: {}", product);
                           });
             } catch (IOException exception) {
@@ -49,8 +49,8 @@ public class BootStrapper {
         };
     }
 
-    private static PimProduct createProductFromCsvLine(final String csvLine) {
+    private static Product createProductFromCsvLine(final String csvLine) {
         final var lineAsArray = csvLine.split(",");
-        return new PimProduct(lineAsArray[0], lineAsArray[1], lineAsArray[2], lineAsArray[3], lineAsArray[4], lineAsArray[5], lineAsArray[6], lineAsArray[7], lineAsArray[9]);
+        return new Product(lineAsArray[0], lineAsArray[1], lineAsArray[2], lineAsArray[3], lineAsArray[4], lineAsArray[5], lineAsArray[6], lineAsArray[7], lineAsArray[9]);
     }
 }

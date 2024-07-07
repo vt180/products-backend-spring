@@ -26,12 +26,13 @@ public class KafkaConsumerConfiguration {
     public ConsumerFactory<String, Product> productConsumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "de.robinmohr.*");
-        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>());
+        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(Product.class));
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, Product> productEventKafkaListenerContainerFactory() {
+    public ConcurrentKafkaListenerContainerFactory<String, Product> productKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, Product> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(productConsumerFactory());
         return factory;

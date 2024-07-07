@@ -2,7 +2,7 @@ package de.robinmohr.backend.product;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +30,7 @@ public class ProductController {
      * Retrieves a product by its ID.
      *
      * @param id the ID of the product to retrieve
+     *
      * @return the Product object if found
      */
     @GetMapping("/{id}")
@@ -40,12 +42,36 @@ public class ProductController {
     /**
      * Retrieves all products with pagination.
      *
-     * @param pageable the pageable object specifying the page number and size
-     * @return the page of Product objects
+     * @param page the page number
+     * @param size the number of items in each page
+     *
+     * @return a Page object containing the products
      */
     @GetMapping()
-    public Page<Product> getAllProducts(Pageable pageable) {
-        return productService.findAll(pageable);
+    public Page<Product> getAllProducts(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                                        @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+        return productService.findAll(PageRequest.of(page, size));
+    }
+
+
+    /**
+     * Retrieves products based on the given parameters.
+     *
+     * @param productTitle the title of the product
+     * @param category     the category of the product
+     * @param subCategory  the sub-category of the product
+     * @param page         the page number
+     * @param size         the number of items in each page
+     *
+     * @return a Page object containing the matching products
+     */
+    @GetMapping("/search")
+    public Page<Product> getProducts(@RequestParam(required = false) String productTitle,
+                                     @RequestParam(required = false) String category,
+                                     @RequestParam(required = false) String subCategory,
+                                     @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                                     @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+        return productService.findByCategoryAndSubCategoryAndTitle(category, subCategory, productTitle, PageRequest.of(page, size));
     }
 
     /**

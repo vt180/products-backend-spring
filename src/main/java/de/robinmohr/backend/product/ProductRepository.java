@@ -4,8 +4,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 
 /**
- * ProductRepository is an interface that extends the MongoRepository interface.
- * It provides CRUD operations for managing Product objects in the system.
+ * The ProductRepository interface represents a repository for managing products in the system.
+ * It extends the MongoRepository interface and the ProductSearchRepository interface.
  */
 public interface ProductRepository
-        extends MongoRepository<Product, String> {}
+        extends MongoRepository<Product, String>, ProductSearchRepository {}

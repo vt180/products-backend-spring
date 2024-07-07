@@ -1,4 +1,4 @@
-package de.robinmohr.backend.pim.infrastructure.kafka;
+package de.robinmohr.backend.product.infrastructure.kafka;
 
 
 import org.apache.kafka.clients.admin.AdminClientConfig;

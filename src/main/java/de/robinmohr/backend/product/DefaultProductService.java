@@ -44,4 +44,9 @@ public class DefaultProductService
     public Page<Product> findAll(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<Product> findByCategoryAndSubCategoryAndTitle(String category, String subCategory, String productTitle, Pageable pageable) {
+        return productRepository.search(category, subCategory, productTitle, pageable);
+    }
 }
