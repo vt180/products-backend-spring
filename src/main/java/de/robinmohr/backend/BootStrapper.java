@@ -35,7 +35,6 @@ public class BootStrapper {
             try (final var fileReader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(getClass().getClassLoader()
                                                                                                                   .getResourceAsStream("fashion.csv"))))) {
                 fileReader.lines()
-                          .limit(55) //TODO: for now only first 55 products
                           .map(BootStrapper::createProductFromCsvLine)
                           .forEach(product -> {
                               log.info("publishing product: {}", product);
