@@ -1,13 +1,17 @@
 package de.robinmohr.backend.product;
 
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -28,8 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @WebMvcTest(ProductController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class ProductControllerTest {
 
     @Autowired
@@ -93,21 +97,19 @@ class ProductControllerTest {
                                                            .productTitle("Gini and Jony Boys Check Blue Shirt")
                                                            .imageURL("http://assets.myntassets.com/v1/images/style/properties/d89f4ae894d44f192d64b42377d6c80b_images.jpg")
                                                            .build();
-        final var page = PageRequest.of(1,
-                                        2,
-                                        Sort.by("productId")
-                                            .ascending());
+        final var page = PageRequest.of(0,
+                                        10);
 
         final Page<Product> pageOfProducts = new PageImpl<>(List.of(productOne, productTwo));
 
         when(productService.findAll(page)).thenReturn(pageOfProducts);
 
-        mockMvc.perform(get("/api/v1/products?page=1&size=2&sort=productId,asc"))
+        mockMvc.perform(get("/api/v1/products?page=0&size=10"))
                .andDo(print())
                .andExpect(status().isOk())
+               .andExpect(jsonPath("$.content").exists())
                .andExpect(content().contentType(APPLICATION_JSON))
                .andExpect(jsonPath("$.content").isArray())
-               .andExpect(jsonPath("$.content").isNotEmpty())
                .andExpect(jsonPath("$.content.length()").value(2))
                .andExpect(jsonPath("$.content[0].productId").value("38940"))
                .andExpect(jsonPath("$.content[0].gender").value("boys"))
