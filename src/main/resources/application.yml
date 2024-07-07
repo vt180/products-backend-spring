@@ -1,6 +1,12 @@
 spring:
   application:
     name: "products-backend-spring"
+  kafka:
+    bootstrap-servers: localhost:29092
+
+kafka:
+  topics: products
+  groupId: product-group-1
 
 logging:
   level:
