@@ -1,6 +1,8 @@
 package de.robinmohr.backend.product;
 
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,14 +29,19 @@ public class Product {
     public static final String COLLECTION = "products";
 
     @Id
+    @NotBlank
     private String productId;
     private String gender;
+    @NotBlank
     private String category;
+    @NotBlank
     private String subCategory;
     private String productType;
     private String colour;
     private String usage;
     @TextIndexed(weight = 3)
+    @NotBlank
     private String productTitle;
+    @Pattern(regexp = "^(http[s]?:\\/\\/(www\\.)?)[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\\/.*)?$")
     private String imageURL;
 }

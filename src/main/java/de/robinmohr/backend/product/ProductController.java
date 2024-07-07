@@ -1,5 +1,6 @@
 package de.robinmohr.backend.product;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -81,7 +82,7 @@ public class ProductController {
      * @param product the updated product information
      */
     @PutMapping("/{id}")
-    public void updateProduct(@PathVariable String id, @RequestBody Product product) {
+    public void updateProduct(@PathVariable String id, @Valid @RequestBody Product product) {
         product.setProductId(id);
         productService.updateProduct(product);
     }
@@ -104,7 +105,7 @@ public class ProductController {
      */
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@RequestBody Product product) {
+    public void createProduct(@Valid @RequestBody Product product) {
         productService.createProduct(product);
     }
 }
