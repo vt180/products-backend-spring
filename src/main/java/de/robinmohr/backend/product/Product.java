@@ -28,19 +28,19 @@ public class Product {
      */
     public static final String COLLECTION = "products";
     @NotBlank
-    private String category;
-    private String colour;
-    private String gender;
+    private             String category;
+    private             String colour;
+    private             String gender;
     @Pattern(regexp = "^(http[s]?:\\/\\/(www\\.)?)[a-zA-Z0-9\\-\\.]+\\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\\/.*)?$")
-    private String imageURL;
+    private             String imageURL;
     @Id
     @NotBlank
-    private String productId;
+    private             String productId;
     @TextIndexed(weight = 3)
     @NotBlank
-    private String productTitle;
-    private String productType;
+    private             String productTitle;
+    private             String productType;
     @NotBlank
-    private String subCategory;
-    private String usage;
+    private             String subCategory;
+    private             String usage;
 }

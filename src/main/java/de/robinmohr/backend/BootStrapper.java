@@ -51,6 +51,16 @@ public class BootStrapper {
 
     private static Product createProductFromCsvLine(final String csvLine) {
         final var lineAsArray = csvLine.split(",");
-        return new Product(lineAsArray[0], lineAsArray[1], lineAsArray[2], lineAsArray[3], lineAsArray[4], lineAsArray[5], lineAsArray[6], lineAsArray[7], lineAsArray[9]);
+        return Product.builder()
+                      .productId(lineAsArray[0])
+                      .productTitle(lineAsArray[7])
+                      .productType(lineAsArray[4])
+                      .usage(lineAsArray[6])
+                      .colour(lineAsArray[5])
+                      .gender(lineAsArray[1])
+                      .imageURL(lineAsArray[9])
+                      .subCategory(lineAsArray[3])
+                      .category(lineAsArray[2])
+                      .build();
     }
 }
