@@ -56,10 +56,11 @@ public class ProductSearchRepositoryImpl
             query.addCriteria(Criteria.where("productTitle")
                                       .regex(productTitle));
         }
-        query.with(pageable);
+        final var totalQuery = Query.of(query);
+        final var pagedQuery = query.with(pageable);
 
-        List<Product> products = mongoTemplate.find(query, Product.class);
-        final var total = mongoTemplate.count(query, Product.class);
+        List<Product> products = mongoTemplate.find(pagedQuery, Product.class);
+        final var total = mongoTemplate.count(totalQuery, Product.class);
 
         return new PageImpl<>(products, pageable, total);
     }
