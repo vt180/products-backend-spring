@@ -54,7 +54,7 @@ public class ProductSearchRepositoryImpl
 
         if (!StringUtil.isNullOrEmpty(productTitle)) {
             query.addCriteria(Criteria.where("productTitle")
-                                      .regex(productTitle));
+                                      .regex(productTitle, "i"));
         }
         final var totalQuery = Query.of(query);
         final var pagedQuery = query.with(pageable);
